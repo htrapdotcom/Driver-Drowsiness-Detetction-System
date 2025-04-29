@@ -1,0 +1,18 @@
+opencv-python
+numpy
+pandas  # (for ddd.ipynb)
+matplotlib  # (for ddd.ipynb)
+scipy
+imutils
+dlib
+Keras
+playsound
+
+
+## Important Notes:
+# TensorFlow: Keras requires TensorFlow to function. While Keras might install TensorFlow as a dependency in some cases, it's often a good idea to install TensorFlow explicitly, especially if you plan to do GPU-accelerated training. You can install it with:
+# pip install tensorflow
+# If you have a compatible GPU, you can install the GPU version of TensorFlow (tensorflow-gpu), but make sure you have the necessary CUDA and cuDNN libraries set up.
+
+## File Paths:
+# This requirements.txt file only covers the Python library dependencies. Remember that the project also has external file dependencies (Haar cascade XML files, dlib's facial landmark predictor, the trained model, and the alarm sound file). The user will need to download these files separately and place them in the correct directories as indicated in the README.
