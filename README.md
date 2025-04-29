@@ -1,103 +1,147 @@
-# **Driver Drowsiness Detection System**
+# Driver Drowsiness Detection System
 
-## **Overview**
+## Description
 
-This project implements a **Driver Drowsiness Detection System** using computer vision, deep learning, and facial landmark detection techniques. The system continuously monitors the driver's face and eyes to detect signs of drowsiness, such as eye closure and yawning. When drowsiness is detected, an alarm is sounded to alert the driver.
+This project provides a system for detecting driver drowsiness in real-time. It uses a webcam to monitor the driver's eyes and mouth, analyzing eye closure and yawning patterns. If drowsiness is detected, an alarm is triggered to alert the driver.
 
----
+The project consists of two main parts:
 
-## **Features**
-
-* **Real-time video stream processing**: Captures live video from the webcam.  
-* **Face and eye detection**: Uses OpenCV's Haar Cascade Classifiers for detecting faces and eyes.  
-* **Deep learning for eye state classification**: A Keras deep learning model predicts if the eyes are open or closed.  
-* **Yawn detection**: Uses dlib's facial landmarks to detect yawning.  
-* **Audio alerts**: Plays an alarm sound to notify the driver of drowsiness.
+- `ddd.ipynb`: A Jupyter Notebook containing the code for training the drowsiness detection model. This includes data loading, model architecture, training, and evaluation.
+- `pls deploy.py`: A Python script for deploying the drowsiness detection system in real-time. This script captures video from a webcam, processes the frames to detect drowsiness, and triggers an alarm if necessary.
 
 ---
 
-## **Project Structure**
+## Features
 
-├── ddd.ipynb                 \# Jupyter Notebook for system development and testing  
-├── model\_best.h5             \# Trained deep learning model for eye state classification  
-├── pls deploy.py             \# Main Python script to run the Drowsiness Detection System  
-├── shape\_predictor\_68\_face\_landmarks.dat  \# Pre-trained dlib shape predictor for facial landmarks  
----
-
-## **Prerequisites**
-
-### **Libraries**
-
-The following Python libraries are required to run the project:
-
-* `OpenCV`  
-* `NumPy`  
-* `SciPy`  
-* `dlib`  
-* `keras`  
-* `imutils`  
-* `playsound`
-
-Install the required libraries using the following command:
-
-pip install opencv-python-headless numpy scipy dlib keras imutils playsound
-
-### **Files**
-
-Make sure the following files are available in the same directory as the main script:
-
-* `model_best.h5`: The trained Keras model for eye detection.  
-* `shape_predictor_68_face_landmarks.dat`: The dlib shape predictor file for facial landmark detection.  
-* Haar Cascade files for face and eye detection.
+- **Real-time Drowsiness Detection:** Monitors eye closure and yawning in real-time using a webcam.
+- **Eye Closure Detection:** Calculates the Eye Aspect Ratio (EAR) to detect prolonged eye closure.
+- **Yawn Detection:** Measures lip distance to detect yawning.
+- **Alarm System:** Triggers an audio alarm to alert the driver.
+- **Haar Cascade Classifiers:** Uses Haar cascade classifiers for face and eye detection.
+- **Dlib Facial Landmarks:** Employs dlib's facial landmark predictor for precise facial feature tracking.
+- **Keras Model:** Utilizes a Keras-based deep learning model for eye state classification.
 
 ---
 
-## **Usage**
+## Requirements
 
-1. **Run the main script**:  
-   python pls deploy.py  
-2. The system will access the webcam and start the video stream.  
-3. The system will display the video frame with detected face, eyes, and status messages like "Eyes Closed" or "Drowsiness Alert".  
-4. If the driver closes their eyes for too long or yawns, an alert sound will be played.  
-5. Press `q` to quit the application.
+- Python 3.6 or higher
+- OpenCV (`cv2`)
+- NumPy (`numpy`)
+- Pandas (`pandas`) (for `ddd.ipynb`)
+- Matplotlib (`matplotlib`) (for `ddd.ipynb`)
+- SciPy (`scipy`)
+- imutils
+- dlib
+- Keras
+- playsound
 
----
+Install the required Python libraries using pip:
 
-## **How It Works**
+```bash
+pip install opencv-python numpy pandas matplotlib scipy imutils dlib keras playsound
+```
 
-1. **Face Detection**:  
-   * Uses OpenCV Haar Cascades to detect faces in the video stream.  
-2. **Eye Detection**:  
-   * Detects eyes within the detected face region using the Haar Cascade method.  
-   * The detected eyes are processed by a deep learning model to classify if they are open or closed.  
-3. **Drowsiness Detection**:  
-   * If the driver's eyes remain closed for more than a set threshold of consecutive frames, a drowsiness alert is triggered.  
-   * Yawning is detected using dlib's 68-point facial landmarks and calculating the distance between the upper and lower lip.  
-4. **Alarm System**:  
-   * An alarm sound is played to alert the driver when drowsiness is detected.
+(Note: You might need to install TensorFlow separately if Keras doesn't automatically install it.)
 
 ---
 
-## **Configuration**
+## Setup
 
-* **EYE\_AR\_THRESH**: Eye aspect ratio threshold to classify eyes as open or closed.  
-* **EYE\_AR\_CONSEC\_FRAMES**: Number of consecutive frames to consider eyes as closed.  
-* **YAWN\_THRESH**: Lip distance threshold to classify a yawn.
+### Clone the Repository
 
-You can modify these constants in `pls deploy.py` to suit your preferences.
+```bash
+git clone [repository_url]
+cd [repository_directory]
+```
+
+### Install Dependencies
+
+```bash
+pip install -r requirements.txt  # If you create a requirements.txt
+# or install them manually as listed in the "Requirements" section.
+```
+
+### Download Necessary Files
+
+- Download the Haar cascade XML files (`haarcascade_frontalface_default.xml`, `haarcascade_lefteye_2splits.xml`, `haarcascade_righteye_2splits.xml`) and place them in the `haarcascade` directory. These files are typically available in the OpenCV repository.
+- Download the dlib facial landmark predictor (`shape_predictor_68_face_landmarks.dat`) and place it in the appropriate directory. You can obtain this file from the dlib website or repository.
+- Ensure the drowsiness detection model (`DL_Driver-drowsiness-detection-main...`) is correctly placed.
+- Place an alarm sound file (`iphone-alarm-vs-android-alarm-128-ytshorts.savetube.me.mp3` or your preferred sound) in the correct location.
+
+> ⚠️ Adjust the file paths in the code to match your directory structure.
 
 ---
 
-## **Troubleshooting**
+## Usage
 
-* **Webcam Not Detected**: Ensure the webcam is properly connected and accessible by OpenCV.  
-* **Missing Files**: Ensure `model_best.h5` and `shape_predictor_68_face_landmarks.dat` are in the working directory.  
-* **Audio Not Playing**: Check if the file path for the alarm sound in `pls deploy.py` is correct.
+### Training the Model
+
+1. Open and run the `ddd.ipynb` Jupyter Notebook.
+2. Make sure to adjust the data paths within the notebook to point to your training data.
+
+### Running Real-time Detection
+
+1. Ensure your webcam is connected.
+2. Open a terminal or command prompt.
+3. Navigate to the project directory.
+4. Run the `pls deploy.py` script:
+
+```bash
+python pls deploy.py
+```
+
+The script will capture video from your webcam and display the output. If drowsiness is detected, an alarm will sound.
 
 ---
 
-## **Acknowledgments**
+## Code Explanation
 
-* [OpenCV](https://opencv.org/) for face and eye detection.  
-* [dlib](http://dlib.net/) for facial landmark detection.  
-* [Keras](https://keras.io/) for deep learning.
+### `ddd.ipynb`
+
+- Loads and preprocesses the drowsiness dataset.
+- Defines and trains a convolutional neural network (CNN) model using Keras.
+- Evaluates the model's performance.
+
+### `pls deploy.py`
+
+- Captures video from a webcam.
+- Detects faces and eyes using Haar cascade classifiers.
+- Uses dlib's facial landmark predictor to get precise eye and mouth coordinates.
+- Calculates the Eye Aspect Ratio (EAR) to detect eye closure.
+- Calculates lip distance to detect yawning.
+- Uses the trained Keras model to classify eye states.
+- Triggers an alarm if drowsiness is detected (prolonged eye closure or frequent yawning).
+
+---
+
+## Important Notes
+
+- **File Paths:** The code relies on specific file paths. Modify these paths to match your local setup.
+- **Environment:** It's highly recommended to use a virtual environment to manage project dependencies.
+- **Model Training:** Training the model in `ddd.ipynb` can be computationally intensive and may require a GPU.
+- **Accuracy:** The system's accuracy depends on training data quality, model architecture, and environmental conditions (e.g., lighting).
+- **Calibration:** Adjust thresholds (e.g., EAR, yawn) for optimal performance.
+
+---
+
+## Future Enhancements
+
+- Improve model accuracy with more data and advanced architectures.
+- Implement more robust face and eye tracking.
+- Add features like head pose estimation.
+- Optimize performance for real-time processing.
+- Integrate with vehicle systems.
+
+---
+
+## Author
+
+Parth
+
+---
+
+## License
+
+[MIT License](https://opensource.org/licenses/MIT) or any other license you prefer.
+
